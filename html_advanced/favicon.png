@@ -1,0 +1,2 @@
+Use the tool at https://realfavicongenerator.net/ to generate all the favicon formats
+take the favicon.ico and favicon.png and place these at the root of your project directory, so that it is siblings with your [0-9]+-index.html files.
