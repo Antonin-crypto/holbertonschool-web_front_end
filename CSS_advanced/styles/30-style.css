@@ -352,6 +352,12 @@ ul.row {
     position: relative;
 }
 
+.card-word .card-title a {
+	display: block;
+	text-decoration: none;
+	padding-top: 45%;
+}
+
 .card-work .card-title a::after {
 	position: absolute;
     top: 0;
