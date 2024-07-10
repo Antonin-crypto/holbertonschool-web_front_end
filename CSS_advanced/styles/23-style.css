@@ -222,6 +222,11 @@ ul.row {
     background-color: var(--color-black);
 }
 
+/* Styling for footer-address class */
+.footer-address {
+	color: var(--text-color);
+}
+
 /* Styling for social-link class */
 .social-link {
 	display: block;
