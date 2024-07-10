@@ -224,14 +224,14 @@ ul.row {
 
 /* Styling for footer-address class */
 .footer-address {
-	color: var(--text-color);
+    color: var(--text-color);
 }
 
 /* Styling for social-link class */
 .social-link {
-	display: block;
+    display: block;
 }
 
 .social-link svg {
-	fill: var(--text-color);
+    fill: var(--text-color);
 }
