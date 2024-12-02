@@ -1,11 +1,11 @@
-
 .btn-xl {
     padding: 1rem 1.75rem;
     font-size: 1.25rem;
 }
+
 .btn-outline-light {
-    color: #F8F9FA;
-    border-color: #F8F9FA;
+    color: #f8f9fa;
+    border-color: #f8f9fa;
 }
 .btn {
     display: inline-block;
