@@ -1,0 +1,16 @@
+.row {
+  display: flex;
+}
+
+[class*="col-"] {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.col-1,
+.col-2,
+.col-3 {
+  border: 1px solid #ccc;
+  text-align: center;
+}
