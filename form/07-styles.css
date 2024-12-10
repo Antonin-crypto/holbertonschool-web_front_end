@@ -109,11 +109,7 @@ button:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 fieldset {
-  padding: 0 0 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border: none;
+  padding: 0.35em 0.75em 0.625em;
 }
 legend {
   box-sizing: border-box;
@@ -162,14 +158,6 @@ template {
   display: none;
 }
 
-label {
-  cursor: pointer;
-  display: block;
-  white-space: nowrap;
-  font-size: 1.4rem;
-  padding: 0 0 0.5rem;
-}
-
 /* Variables
    ============================= */
 
@@ -184,6 +172,7 @@ label {
   --color-green: #08805b;
 
   --text-color: var(--color-black);
+
   --valid-color: var(--color-green);
   --error-color: var(--color-red);
 
@@ -827,7 +816,8 @@ ul.row {
 
 /*** FORM ***/
 /* Comment section
-   ============================= */
+      ============================= */
+
 .post-comments {
   width: 80%;
   margin: 10rem 0 0 auto;
@@ -839,12 +829,29 @@ ul.row {
 }
 
 /* Basic form
-   ============================= */
+      ============================= */
+
 form {
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
   margin: 0;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: none;
+  padding: 0 0 2rem;
+}
+
+label {
+  cursor: pointer;
+  display: block;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  padding: 0 0 0.5rem;
 }
 
 input[type="text"],
@@ -878,20 +885,22 @@ textarea:focus {
 }
 
 /* Form group
-============================= */
+  ============================= */
+
 .form-group {
   padding: 1rem;
   margin: 0;
   background-color: var(--color-white);
 }
 
-.form-group:focus-within {
+.focus-within {
   background-color: var(--color-light-grey);
   transition: 0.3s;
 }
 
 /* Form field
-============================= */
+  ============================= */
+
 .form-field-container {
   position: relative;
 }
@@ -901,7 +910,8 @@ textarea:focus {
 }
 
 /* Form help
-============================= */
+  ============================= */
+
 .form-group .form-help {
   margin: 0;
   line-height: 1.3;
@@ -919,7 +929,8 @@ textarea:focus {
 }
 
 /* Form error handling
-============================= */
+  ============================= */
+
 /* The following code is used to place the icon in the after pseudo element. Because after and before are not possible in an input, we need to use a span that will be positioned on the right of our input. */
 
 input:not(:placeholder-shown) ~ .form-field-icon::after {
@@ -931,7 +942,7 @@ input:not(:placeholder-shown) ~ .form-field-icon::after {
   width: 1.3em;
 }
 
-/* Because inputs are invalid by default, we need to be careful and show the icon when we are not in focus and when the input is not empty (placeholder-shown). Careful with this one because it is not supported everywhere. */
+/* Because inputs are invalid by default, we need to be careful and show the icon when we are not in focus and when when the input is not empty (placeholder-shown). Careful with this one because it is not supported everywhere. */
 
 input:required:invalid:not(:focus):not(:placeholder-shown)
   ~ .form-field-icon::after {
@@ -944,13 +955,13 @@ input:required:valid ~ .form-field-icon::after {
   color: var(--valid-color);
 }
 
-/* We want to hide the helper text when we are not in focus. The tilde allows us to select a sibling element in CSS */
+/* We want to hide the helper text when we are not in focus. The tilte allows us to select a sibling element in CSS */
 
 input:required:valid ~ .form-help {
   max-height: 0;
 }
 
-/* Showing a border in a different color is good but not enough. For accessibility purposes, we added an icon when the input is valid or invalid to have a visual distinction that is not only color based. */
+/* Showing a border in a different color is good but not enough. For accessibility purposes, we added an icon when the input is valid or invalid to have a visual distinction that is not only color based.*/
 
 input:required:invalid:not(:focus):not(:placeholder-shown),
 textarea:invalid:not(:focus):not(:placeholder-shown) {
@@ -963,12 +974,15 @@ textarea:valid:not(:placeholder-shown) {
 }
 
 /*** SEARCH FORM ***/
+
+/* Target form-search class */
 .form-search {
   display: block;
   padding: 0.5rem 0;
   position: relative;
 }
 
+/* Target search-button class inside form-search class */
 .form-search .search-button {
   display: inline-block;
   background: transparent;
@@ -977,12 +991,14 @@ textarea:valid:not(:placeholder-shown) {
   padding: 0;
 }
 
-.form-search .search-button .search-icon {
+/* Target search-icon class inside search-button class */
+.search-button .search-icon {
   fill: var(--color-white);
   width: 1.5rem;
   height: 1.5rem;
 }
 
+/* Target input type search inside form-search class */
 .form-search input[type="search"] {
   display: inline-block;
   color: var(--color-white);
@@ -999,6 +1015,7 @@ textarea:valid:not(:placeholder-shown) {
   transition: width 0.4s cubic-bezier(0, 0.795, 0, 1);
 }
 
+/* Focus state of input type search inside form-search class */
 .form-search input[type="search"]:focus {
   position: relative;
   width: 15rem;
