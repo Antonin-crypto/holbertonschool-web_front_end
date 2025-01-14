@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 9</title>
+    <!-- Load the latest version of jQuery using the minified version from the CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="application/javascript">
+      window.onload = function () {
+        // Add CSS style for loading
+        $("head").append("<style>" + ".loading { opacity: 0.2; }" + "</style>");
+
+        // Function to create the search form
+        function createSearchForm() {
+          // Create the form elements
+          var form = $("<form>").on("submit", function (event) {
+            event.preventDefault();
+            var query = $("input[type='text']").val();
+            queryWikipedia(query);
+          });
+
+          // Create the text input and submit button
+          var input = $("<input>")
+            .attr("type", "text")
+            .attr("placeholder", "Search Wikipedia");
+          var submitButton = $("<input>").attr("type", "submit").val("Search");
+
+          // Create the ul element to display search results
+          var ul = $("<ul>");
+          var pagination = $("<ul>").attr("id", "pagination");
+
+          // Append the form, ul, and pagination to the body
+          form.append(input, submitButton);
+          $("body").append(form, ul, pagination);
+        }
+
+        // Function to add a new article to the list
+        function addNewArticle(id, title, snippet) {
+          // Create a new list item (li)
+          var li = $("<li>");
+
+          // Create the first paragraph with the id and title
+          var p1 = $("<p>").append(
+            $("<span>").text("id - "),
+            $("<b>").text(title)
+          );
+
+          // Create the second paragraph with the snippet
+          var p2 = $("<p>").html(snippet); // Using .html() to correctly display the HTML content
+
+          // Append the paragraphs to the li
+          li.append(p1, p2);
+
+          // Append the li to the ul element
+          $("ul").append(li);
+        }
+
+        // Function to display loading state
+        function displayLoading(loading) {
+          var ul = $("ul").first();
+          if (loading) {
+            ul.wrap('<div class="loading"></div>'); // Wrap the ul with the loading div
+          } else {
+            ul.unwrap(); // Unwrap the ul from the loading div
+          }
+        }
+
+        // Function to query Wikipedia using the API
+        function queryWikipedia(search, offset = 0) {
+          // Show loading indicator before starting the API request
+          displayLoading(true);
+
+          $.ajax({
+            url: "https://en.wikipedia.org/w/api.php",
+            data: {
+              action: "query",
+              list: "search",
+              srsearch: search,
+              sroffset: offset,
+              format: "json",
+              origin: "*", // Allow cross-origin requests
+            },
+            dataType: "json",
+            success: function (data) {
+              // Clear the current search results
+              $("ul").empty();
+
+              // For each search result, call addNewArticle
+              data.query.search.forEach(function (result) {
+                addNewArticle(result.pageid, result.title, result.snippet);
+              });
+
+              // Call buildPagination to update pagination
+              buildPagination(data.query.searchinfo.totalhits, 10, offset);
+
+              // Hide loading indicator after the results are received
+              displayLoading(false);
+            },
+            error: function () {
+              alert("An error occurred while fetching the Wikipedia data.");
+              // Hide loading indicator in case of error
+              displayLoading(false);
+            },
+          });
+        }
+
+        // Function to build pagination
+        function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+          // Reset the pagination list
+          $("#pagination").empty();
+
+          // Calculate the total number of pages
+          var totalPages = Math.ceil(numberOfItems / itemsPerPage);
+
+          // Loop through the pages and create list items
+          for (var i = 0; i < totalPages; i++) {
+            var pageNumber = i + 1;
+            var pageOffset = i * itemsPerPage;
+
+            // Create a list item for each page
+            var li = $("<li>")
+              .text(pageNumber)
+              .css({
+                cursor: "pointer",
+                marginLeft: "10px",
+                fontWeight: currentOffset === pageOffset ? "bold" : "normal",
+              });
+
+            // Add a click event to each page item
+            li.on("click", function () {
+              var offset = (parseInt($(this).text()) - 1) * itemsPerPage;
+              queryWikipedia($("input[type='text']").val(), offset);
+            });
+
+            // Append the list item to the pagination
+            $("#pagination").append(li);
+          }
+        }
+
+        // Call createSearchForm to initialize the search functionality
+        createSearchForm();
+      };
+    </script>
+    <style>
+      input[type="text"],
+      input[type="submit"] {
+        margin: 10px;
+        padding: 5px;
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      li {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      p {
+        margin: 5px 0;
+      }
+      span {
+        font-weight: bold;
+      }
+      #pagination {
+        list-style-type: none;
+        padding-left: 0;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+      #pagination li {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body></body>
+</html>

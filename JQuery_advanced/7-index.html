@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 7</title>
+    <!-- Load the latest version of jQuery using the minified version from the CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="application/javascript">
+      window.onload = function () {
+        function createSearchForm() {
+          var form = $("<form>").on("submit", function (event) {
+            event.preventDefault();
+            var query = $("input[type='text']").val();
+            queryWikipedia(query);
+          });
+
+          var input = $("<input>")
+            .attr("type", "text")
+            .attr("placeholder", "Search Wikipedia");
+          var submitButton = $("<input>").attr("type", "submit").val("Search");
+
+          var ul = $("<ul>");
+
+          form.append(input, submitButton);
+          $("body").append(form, ul);
+        }
+
+        function addNewArticle(id, title, snippet) {
+          var li = $("<li>");
+
+          var p1 = $("<p>").append(
+            $("<span>").text("id - "),
+            $("<b>").text(title)
+          );
+
+          var p2 = $("<p>").html(snippet);
+
+          li.append(p1, p2);
+
+          $("ul").append(li);
+        }
+
+        function queryWikipedia(search) {
+          $.ajax({
+            url: "https://en.wikipedia.org/w/api.php",
+            data: {
+              action: "query",
+              list: "search",
+              srsearch: search,
+              format: "json",
+              origin: "*",
+            },
+            dataType: "json",
+            success: function (data) {
+              $("ul").empty();
+
+              data.query.search.forEach(function (result) {
+                addNewArticle(result.pageid, result.title, result.snippet);
+              });
+            },
+            error: function () {
+              alert("An error occurred while fetching the Wikipedia data.");
+            },
+          });
+        }
+
+        createSearchForm();
+      };
+    </script>
+    <style>
+      input[type="text"],
+      input[type="submit"] {
+        margin: 10px;
+        padding: 5px;
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      li {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      p {
+        margin: 5px 0;
+      }
+      span {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body></body>
+</html>

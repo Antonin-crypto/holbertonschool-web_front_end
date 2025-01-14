@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 4</title>
+    <!-- Load the latest version of jQuery using the Slim & minified version from the CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Script to create the family tree table and replace its content -->
+    <script type="application/javascript">
+      window.onload = function () {
+        function createFamilyTree() {
+          var table = $("<table>");
+
+          var thead = $("<thead>");
+          var headerRow = $("<tr>");
+          var th1 = $("<th>").text("Firstname");
+          var th2 = $("<th>").text("Lastname");
+          headerRow.append(th1, th2);
+          thead.append(headerRow);
+
+          var tbody = $("<tbody>");
+
+          var row1 = $("<tr>");
+          var cell1 = $("<td>").text("Guillaume");
+          var cell2 = $("<td>").text("Salva");
+          row1.append(cell1, cell2);
+
+          var row2 = $("<tr>");
+          var cell3 = $("<td>").text("Paulette");
+          var cell4 = $("<td>").text("Salva");
+          row2.append(cell3, cell4);
+
+          var row3 = $("<tr>");
+          var cell5 = $("<td>").text("Antoine");
+          var cell6 = $("<td>").text("Salva");
+          row3.append(cell5, cell6);
+
+          table.append(thead, tbody.append(row1, row2, row3));
+
+          $("body").append(table);
+        }
+
+        function replaceFamilyTree() {
+          var newRow = $("<tr>");
+          var newCell1 = $("<td>").text("Gerard");
+          var newCell2 = $("<td>").text("Bonissa");
+          newRow.append(newCell1, newCell2);
+
+          $("table tbody").html(newRow);
+        }
+
+        createFamilyTree();
+
+        replaceFamilyTree();
+      };
+    </script>
+  </head>
+
+  <body></body>
+</html>

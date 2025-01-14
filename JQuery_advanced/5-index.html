@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 5</title>
+    <!-- Load the latest version of jQuery using the Slim & minified version from the CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Script to create and manage the family tree table -->
+    <script type="application/javascript">
+      window.onload = function () {
+        function createFamilyTree() {
+          var table = $("<table>");
+
+          var thead = $("<thead>");
+          var headerRow = $("<tr>");
+          var th1 = $("<th>").text("Firstname");
+          var th2 = $("<th>").text("Lastname");
+          var th3 = $("<th>").text("Action");
+          headerRow.append(th1, th2, th3);
+          thead.append(headerRow);
+
+          table.append(thead);
+
+          var tbody = $("<tbody>");
+          table.append(tbody);
+
+          $("body").append(table);
+        }
+
+        function addNewMember(firstName, lastName) {
+          var row = $("<tr>");
+
+          var cell1 = $("<td>").text(firstName);
+
+          var cell2 = $("<td>").text(lastName);
+
+          var cell3 = $("<td>").text("x").css("background-color", "orange");
+
+          row.append(cell1, cell2, cell3);
+
+          $("table tbody").append(row);
+
+          cell3.click(function () {
+            row.remove();
+          });
+        }
+
+        createFamilyTree();
+
+        addNewMember("Guillaume", "Salva");
+        addNewMember("Arielle", "Snizt");
+        addNewMember("Fanette", "Snizt");
+        addNewMember("Gerard", "Snizt");
+        addNewMember("Victor", "Salva");
+      };
+    </script>
+    <style>
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body></body>
+</html>

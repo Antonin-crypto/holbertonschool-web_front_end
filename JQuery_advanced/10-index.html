@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 10</title>
+    <!-- Importing jQuery using CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <script type="application/javascript">
+      window.onload = function () {
+        // Function to add a post row to the body
+        function addPostRow(data) {
+          // Create a paragraph element with the post information
+          var paragraph = $("<p>").text(
+            `Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`
+          );
+
+          $("body").append(paragraph);
+        }
+
+        function listPosts() {
+          $.get("http://localhost:3000/posts", function (data) {
+            data.forEach(function (post) {
+              addPostRow(post);
+            });
+          }).fail(function () {
+            alert("Server Error");
+          });
+        }
+
+        listPosts();
+      };
+    </script>
+  </body>
+</html>
